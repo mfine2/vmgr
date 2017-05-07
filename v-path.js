@@ -2,9 +2,11 @@
 var path = require('path');
 
 var hashPath = function(pth, hash) {
+  var basename = path.posix.basename(pth);
 	var ext = path.extname(pth);
+  var newname = path.posix.basename(pth, ext) + '-' + hash + ext;
 
-	return path.join(path.dirname(pth), path.posix.basename(pth, ext) + '-' + hash + ext);
+  return pth.replace(basename, newname);
 };
 
 var realPath = function(pth, dist, delimiter) {

@@ -7,6 +7,13 @@ var src = '';
 var dist = '';
 var delimiter = '';
 
+var renamePath = function(realPath, hashRealPath) {
+  fs.rename(realPath, hashRealPath, function(err) {
+      if (err) {
+        throw err;
+      }
+  });
+};
 var processPath = function(pth, fn) {
     var realPath = vpath.realPath(pth, dist, delimiter);
     var hash = vhash(fs.readFileSync(realPath));
@@ -37,12 +44,12 @@ var getStaticPathList = function(html) {
 
     matches.forEach(function(matched) {
         if (matched.indexOf('href') > 0 || matched.indexOf('src') > 0) {
-            matched = matched.replace(/.+(href|src)="(.+?)".+/g, '$2');
+            matched = matched.replace(/.+(href|src)="(.+)"\s*>/g, '$2');
             matched = matched.replace(/\?.+$/g, '');
 
             var ext = path.extname(matched);
 
-            if (ext === '.js' || ext === '.css') {
+            if (matched.indexOf(delimiter) !== -1 && matched.indexOf('/lib/') === -1  && (ext === '.js' || ext === '.css')) {//not match /js/lib/* or /css/lib/*
                 staticPathList.push(matched);
             }
         }
@@ -54,7 +61,7 @@ var getStaticPathList = function(html) {
 var processStaticPath = function(htmlPath) {
     fs.readFile(htmlPath, function(readErr, data) {
         if (readErr) {
-			throw readErr;
+            throw readErr;
         }
 
         var html = data.toString();
@@ -64,8 +71,7 @@ var processStaticPath = function(htmlPath) {
             processPath(staticPath, function(hashPath, realPath, hashRealPath) {
                 hashPath = hashPath.replace(/\\/g, '/');
                 html = html.replace(staticPath, hashPath);
-                //fs.rename(realPath, hashRealPath);
-                console.log(hashPath, realPath, hashRealPath);
+                renamePath(realPath, hashRealPath);
             });
         });
 
@@ -78,9 +84,16 @@ var processStaticPath = function(htmlPath) {
 };
 
 module.exports = function (args) {
-    delimiter = args[0] || '';
-    src = args[1] || __dirname;//where to read .html
-    dist = args[2] || __dirname;//where to read .js/.css
+    src = args.src || '';//where to read .html
+    dist = args.dist || '';//where to read/write .js/.css
+    delimiter = args.delimiter || '';
+
+    if (src === '') {
+        throw new Error('`src` required');
+    }
+    if (dist === '') {
+        throw new Error('`dist` required');
+    }
 
     var htmlPathList = getHtmlPathList();
 
