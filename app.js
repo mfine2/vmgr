@@ -1,5 +1,6 @@
 'use strict';
+var yargs = require('yargs');
 var index = require('./index');
-var args = process.argv.slice(2);
+var argv = yargs.alias('d', 'delimiter').argv;
 
-index(args);
+index(argv);

@@ -1,1 +1,0 @@
-node app.js "/Users/pigli/Documents/git-repo/taoyue365.com/dev/src/www/dist" "/Users/pigli/Documents/git-repo/taoyue365.com/dev/src/www/dist" "http://static.taoyue365.com/www/"

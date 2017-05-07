@@ -83,10 +83,12 @@ var processStaticPath = function(htmlPath) {
     });
 };
 
-module.exports = function (args) {
-    src = args.src || '';//where to read .html
-    dist = args.dist || '';//where to read/write .js/.css
-    delimiter = args.delimiter || '';
+module.exports = function (argv) {
+    src = argv.src || '';//where to read .html
+    dist = argv.dist || '';//where to read/write .js/.css
+    delimiter = argv.delimiter || '';
+
+  console.log(src, dist, delimiter);
 
     if (src === '') {
         throw new Error('`src` required');
