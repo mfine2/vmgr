@@ -1,7 +1,7 @@
 {
   "name": "vmgr",
   "description": "static version manager",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "app.js",
   "scripts": {
     "test": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist -d http://static.taoyue365.com/wx/"
