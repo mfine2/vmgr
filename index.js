@@ -88,8 +88,6 @@ module.exports = function (argv) {
     dist = argv.dist || '';//where to read/write .js/.css
     delimiter = argv.delimiter || '';
 
-  console.log(src, dist, delimiter);
-
     if (src === '') {
         throw new Error('`src` required');
     }
