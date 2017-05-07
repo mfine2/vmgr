@@ -4,7 +4,7 @@
   "version": "0.0.6",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/www/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/www/dist -d http://static.taoyue365.com/www/"
+    "test": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist -d http://static.taoyue365.com/wx/"
   },
   "repository": {
     "type": "git",
