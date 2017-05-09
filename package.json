@@ -4,7 +4,9 @@
   "version": "0.0.7",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist -d http://static.taoyue365.com/wx/"
+    "dev": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --delimiter http://static.taoyue365.com/wx/ --tempdelimiter http://127.0.0.1/wx/",
+    "test": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --delimiter http://static.taoyue365.com/wx/ --tempdelimiter http://test.taoyuanshuguan.com/wx/",
+    "build": "node app.js --src /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --dist /Users/pigli/Documents/git-repo/taoyue365.com/dev/src/wx/dist --delimiter http://static.taoyue365.com/wx/"
   },
   "repository": {
     "type": "git",

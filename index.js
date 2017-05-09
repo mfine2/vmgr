@@ -6,6 +6,7 @@ var vpath = require('./v-path');
 var src = '';
 var dist = '';
 var delimiter = '';
+var tempdelimiter = '';
 var pathMap = {};
 
 var renamePath = function (realPath, hashRealPath) {
@@ -68,6 +69,7 @@ var processStaticPath = function (htmlPath) {
 
     var html = data.toString();
     var staticPathList = getStaticPathList(html);
+    var reg = new RegExp(delimiter, 'g');
 
     staticPathList.forEach(function (staticPath) {
       if (pathMap[staticPath]) {
@@ -76,6 +78,11 @@ var processStaticPath = function (htmlPath) {
         processPath(staticPath, function (hashPath, realPath, hashRealPath) {
           hashPath = hashPath.replace(/\\/g, '/');
           html = html.replace(staticPath, hashPath);
+
+          if (tempdelimiter) {
+            html = html.replace(reg, tempdelimiter);
+          }
+
           renamePath(realPath, hashRealPath);
           pathMap[staticPath] = hashPath;
         });
@@ -94,6 +101,7 @@ module.exports = function (argv) {
   src = argv.src || '';//where to read .html
   dist = argv.dist || '';//where to read/write .js/.css
   delimiter = argv.delimiter || '';
+  tempdelimiter = argv.tempdelimiter || '';
 
   if (src === '') {
     throw new Error('`src` required');
