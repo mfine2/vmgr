@@ -69,7 +69,7 @@ var processStaticPath = function (htmlPath) {
 
     var html = data.toString();
     var staticPathList = getStaticPathList(html);
-    var reg = new RegExp(delimiter, 'g');
+    var tempHashPath = '';
 
     staticPathList.forEach(function (staticPath) {
       if (pathMap[staticPath]) {
@@ -78,14 +78,14 @@ var processStaticPath = function (htmlPath) {
         processPath(staticPath, function (hashPath, realPath, hashRealPath) {
           hashPath = hashPath.replace(/\\/g, '/');
           html = html.replace(staticPath, hashPath);
-
-          if (tempdelimiter) {
-            html = html.replace(reg, tempdelimiter);
-          }
-
           renamePath(realPath, hashRealPath);
           pathMap[staticPath] = hashPath;
         });
+      }
+
+      if (tempdelimiter) {
+        tempHashPath = pathMap[staticPath].replace(delimiter, tempdelimiter);
+        html = html.replace(pathMap[staticPath], tempHashPath);
       }
     });
 
