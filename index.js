@@ -72,20 +72,27 @@ var processStaticPath = function (htmlPath) {
     var tempHashPath = '';
 
     staticPathList.forEach(function (staticPath) {
-      if (pathMap[staticPath]) {
-        html = html.replace(staticPath, pathMap[staticPath]);
-      } else {
-        processPath(staticPath, function (hashPath, realPath, hashRealPath) {
-          hashPath = hashPath.replace(/\\/g, '/');
-          html = html.replace(staticPath, hashPath);
-          renamePath(realPath, hashRealPath);
-          pathMap[staticPath] = hashPath;
-        });
-      }
+      if (tempdelimiter.indexOf('127.0.0.1') === -1) {//not dev
+        if (pathMap[staticPath]) {
+          html = html.replace(staticPath, pathMap[staticPath]);
+        } else {
+          processPath(staticPath, function (hashPath, realPath, hashRealPath) {
+            hashPath = hashPath.replace(/\\/g, '/');
+            html = html.replace(staticPath, hashPath);
+            renamePath(realPath, hashRealPath);
+            pathMap[staticPath] = hashPath;
+          });
+        }
 
-      if (tempdelimiter) {
-        tempHashPath = pathMap[staticPath].replace(delimiter, tempdelimiter);
-        html = html.replace(pathMap[staticPath], tempHashPath);
+        if (tempdelimiter) {
+          tempHashPath = pathMap[staticPath].replace(delimiter, tempdelimiter);
+          html = html.replace(pathMap[staticPath], tempHashPath);
+        }
+      } else {
+        if (tempdelimiter) {
+          tempHashPath = staticPath.replace(delimiter, tempdelimiter);
+          html = html.replace(staticPath, tempHashPath);
+        }
       }
     });
 
