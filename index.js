@@ -52,7 +52,7 @@ var getStaticPathList = function (html) {
 
       var ext = path.extname(matched);
 
-      if (matched.indexOf(delimiter) !== -1 && (ext === '.js' || ext === '.css')) {
+      if (matched.indexOf(delimiter) !== -1 && matched.indexOf('/lib/') === -1 && (ext === '.js' || ext === '.css')) {//not match /js/lib/* or /css/lib/*
         staticPathList.push(matched);
       }
     }
