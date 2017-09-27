@@ -45,7 +45,7 @@ var getStaticPathList = function (html) {
   var matches = html.match(/<(link|script).+?>/g);
   var staticPathList = [];
 
-  matches.forEach(function (matched) {
+  matches && matches.forEach(function (matched) {
     if (matched.indexOf('href') > 0 || matched.indexOf('src') > 0) {
       matched = matched.replace(/.+(href|src)="(.+)"\s*>/g, '$2');
       matched = matched.replace(/\?.+$/g, '');
